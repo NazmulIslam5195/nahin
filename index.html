@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mohammed Nazmul Islam Nahin | Lecturer, ETE, RUET</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0B1628;
+      --navy-mid:   #112240;
+      --navy-card:  #172A45;
+      --navy-light: #1E3A5F;
+      --accent:     #64FFDA;
+      --accent2:    #FFC857;
+      --text:       #CCD6F6;
+      --text-muted: #8892B0;
+      --white:      #E6F1FF;
+      --border:     rgba(100,255,218,0.12);
+      --radius:     8px;
+      --transition: 0.25s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(11,22,40,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(1rem,5vw,3rem);
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; color: var(--accent); text-decoration: none; letter-spacing: 0.03em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color var(--transition); }
+    .nav-links a:hover { color: var(--accent); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); transition: var(--transition); }
+    .mobile-menu { display: none; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: clamp(5rem,10vw,8rem) clamp(1.5rem,8vw,5rem) 4rem;
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 70% 40%, rgba(100,255,218,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 3rem; align-items: center; max-width: 1100px; width: 100%;
+    }
+    .hero-eyebrow {
+      font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; margin-bottom: 1rem;
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      color: var(--white); line-height: 1.1; margin-bottom: 0.5rem;
+    }
+    .hero-title {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-muted); margin-bottom: 1.5rem;
+    }
+    .hero-title span { color: var(--accent2); }
+    .hero-bio {
+      font-size: 0.95rem; color: var(--text-muted); max-width: 560px;
+      border-left: 3px solid var(--accent); padding-left: 1rem; margin-bottom: 2rem;
+    }
+    .hero-stats {
+      display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem;
+    }
+    .stat { text-align: center; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent); line-height: 1; }
+    .stat-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      padding: 0.7rem 1.5rem; border-radius: var(--radius);
+      font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em; cursor: pointer;
+      text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 0.4rem;
+    }
+    .btn-primary { background: var(--accent); color: var(--navy); border: none; }
+    .btn-primary:hover { background: #52e8c4; transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+    .btn-outline:hover { background: rgba(100,255,218,0.08); transform: translateY(-2px); }
+
+    .hero-photo-wrap {
+      position: relative; flex-shrink: 0;
+    }
+    .hero-photo-wrap::before {
+      content: '';
+      position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px;
+      border: 2px solid var(--accent); border-radius: 10px; opacity: 0.4;
+    }
+    .hero-photo {
+      width: 220px; height: 260px; object-fit: cover;
+      border-radius: 8px; display: block;
+      filter: grayscale(20%) contrast(1.05);
+      position: relative; z-index: 1;
+    }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: clamp(3rem,8vw,5rem) clamp(1.5rem,8vw,5rem); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); font-weight: 600; margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--white);
+      margin-bottom: 2.5rem; position: relative; display: inline-block;
+    }
+    .section-title::after {
+      content: ''; position: absolute; bottom: -8px; left: 0;
+      width: 48px; height: 3px; background: var(--accent); border-radius: 2px;
+    }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    /* ─── ABOUT ─── */
+    #about { background: var(--navy-mid); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .about-text p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+    .about-text p strong { color: var(--text); }
+    .info-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .info-list li { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 0.9rem; }
+    .info-list .icon { color: var(--accent); font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+    .info-list a { color: var(--text-muted); text-decoration: none; }
+    .info-list a:hover { color: var(--accent); }
+
+    /* ─── RESEARCH ─── */
+    .research-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+    .research-card {
+      background: var(--navy-card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.5rem; transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .research-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .research-card:hover { transform: translateY(-4px); border-color: rgba(100,255,218,0.3); }
+    .research-card h3 { color: var(--white); font-size: 1rem; margin-bottom: 0.5rem; }
+    .research-card p { color: var(--text-muted); font-size: 0.85rem; }
+
+    /* ─── EDUCATION ─── */
+    #education { background: var(--navy-mid); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .timeline-item { position: relative; margin-bottom: 2rem; }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -2.4rem; top: 6px;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--navy); border: 2px solid var(--accent);
+    }
+    .timeline-year { font-size: 0.78rem; color: var(--accent); font-weight: 600; letter-spacing: 0.08em; }
+    .timeline-degree { color: var(--white); font-weight: 600; font-size: 0.95rem; margin: 0.15rem 0; }
+    .timeline-inst { color: var(--text-muted); font-size: 0.85rem; }
+
+    /* ─── PUBLICATIONS ─── */
+    .pub-filters { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .filter-btn {
+      padding: 0.4rem 1.1rem; border-radius: 20px; border: 1.5px solid var(--border);
+      background: transparent; color: var(--text-muted); font-size: 0.8rem; cursor: pointer;
+      transition: var(--transition); font-family: 'Inter', sans-serif; font-weight: 500;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      border-color: var(--accent); color: var(--accent); background: rgba(100,255,218,0.06);
+    }
+    .pub-count { color: var(--text-muted); font-size: 0.82rem; margin-bottom: 1rem; }
+    .pub-count span { color: var(--accent); font-weight: 600; }
+    .pub-table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    thead th {
+      background: var(--navy-card); color: var(--accent); font-weight: 600; font-size: 0.75rem;
+      text-transform: uppercase; letter-spacing: 0.08em; padding: 0.9rem 1rem; text-align: left;
+      position: sticky; top: 0;
+    }
+    tbody tr { border-top: 1px solid var(--border); transition: background var(--transition); }
+    tbody tr:hover { background: rgba(100,255,218,0.03); }
+    tbody td { padding: 0.85rem 1rem; color: var(--text-muted); vertical-align: top; }
+    tbody td:first-child { color: var(--text-muted); width: 36px; }
+    tbody td a { color: var(--accent); text-decoration: none; }
+    tbody td a:hover { text-decoration: underline; }
+    .badge {
+      display: inline-block; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.7rem;
+      font-weight: 600; letter-spacing: 0.04em; white-space: nowrap;
+    }
+    .badge-journal  { background: rgba(100,255,218,0.12); color: var(--accent); }
+    .badge-conf     { background: rgba(255,200,87,0.12);  color: var(--accent2); }
+    .badge-book     { background: rgba(167,139,250,0.12); color: #A78BFA; }
+
+    /* ─── AWARDS ─── */
+    #awards { background: var(--navy-mid); }
+    .awards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .award-card {
+      background: var(--navy-card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.25rem 1.5rem; display: flex; gap: 1rem; align-items: flex-start;
+      transition: var(--transition);
+    }
+    .award-card:hover { border-color: rgba(255,200,87,0.3); transform: translateY(-2px); }
+    .award-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .award-card h4 { color: var(--white); font-size: 0.9rem; margin-bottom: 0.2rem; }
+    .award-card p { color: var(--text-muted); font-size: 0.8rem; }
+
+    /* ─── CONTACT ─── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .contact-card {
+      background: var(--navy-card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 2rem;
+    }
+    .contact-card h3 { color: var(--white); margin-bottom: 1.25rem; font-size: 1rem; }
+    .contact-item { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 1rem; }
+    .contact-item .c-icon { color: var(--accent); flex-shrink: 0; }
+    .contact-item a, .contact-item p { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; }
+    .contact-item a:hover { color: var(--accent); }
+    .social-links { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
+    .social-btn {
+      padding: 0.5rem 1rem; border-radius: var(--radius);
+      border: 1px solid var(--border); color: var(--text-muted);
+      text-decoration: none; font-size: 0.82rem; font-weight: 500;
+      transition: var(--transition); display: inline-flex; align-items: center; gap: 0.4rem;
+    }
+    .social-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(100,255,218,0.06); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--navy-mid); border-top: 1px solid var(--border);
+      padding: 2rem clamp(1.5rem,8vw,5rem);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: gap;
+      font-size: 0.8rem; color: var(--text-muted); flex-wrap: wrap; gap: 0.5rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu.open {
+        display: flex; flex-direction: column; gap: 1.25rem;
+        position: fixed; top: 64px; left: 0; right: 0;
+        background: var(--navy-mid); padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--border); z-index: 99;
+      }
+      .mobile-menu a { color: var(--text-muted); text-decoration: none; font-size: 1rem; font-weight: 500; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-photo-wrap { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">N. I. Nahin</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#research" onclick="closeMenu()">Research</a>
+  <a href="#education" onclick="closeMenu()">Education</a>
+  <a href="#publications" onclick="closeMenu()">Publications</a>
+  <a href="#awards" onclick="closeMenu()">Awards</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid">
+    <div>
+      <p class="hero-eyebrow">Lecturer · ETE · RUET</p>
+      <h1 class="hero-name">Mohammed Nazmul<br>Islam Nahin</h1>
+      <p class="hero-title">Dept. of Electronics & Telecommunication Engineering<br><span>Rajshahi University of Engineering & Technology</span></p>
+      <p class="hero-bio">
+        Researcher at the intersection of Power Electronics, Control Systems, and Renewable Energy — integrating machine learning into next-generation power conversion systems.
+      </p>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">25+</div><div class="stat-label">Publications</div></div>
+        <div class="stat"><div class="stat-num">5</div><div class="stat-label">Awards</div></div>
+        <div class="stat"><div class="stat-num">5</div><div class="stat-label">Journal Papers</div></div>
+        <div class="stat"><div class="stat-num">2</div><div class="stat-label">Book Chapters</div></div>
+      </div>
+      <div class="hero-cta">
+        <a href="https://scholar.google.com/citations?user=bYq9IXUAAAAJ&hl=en&oi=ao" target="_blank" class="btn btn-primary">Google Scholar ↗</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <img src="https://www.ete.ruet.ac.bd/public/storage/profile/photo1467.jpg" alt="Mohammed Nazmul Islam Nahin" class="hero-photo" onerror="this.style.display='none'"/>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner reveal">
+    <p class="section-label">Background</p>
+    <h2 class="section-title">About</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Mohammed Nazmul Islam Nahin is a <strong>Lecturer in the Department of Electronics and Telecommunication Engineering (ETE)</strong> at Rajshahi University of Engineering & Technology (RUET), where he joined in May 2025.</p>
+        <p>Prior to this, he served as a Lecturer in the Department of ICT at Bangladesh Army University of Engineering & Technology (BAUET). He holds both his B.Sc and M.Sc in ETE from RUET.</p>
+        <p>His research passion lies in making power electronics smarter — using machine learning to improve the performance and efficiency of renewable energy systems, motor drives, and grid-connected inverters. He has authored <strong>20+ research papers</strong> and received multiple best paper and presentation awards at international conferences.</p>
+        <p>He is the recipient of the <strong>National Science and Technology (NST) Fellowship 2025</strong>.</p>
+      </div>
+      <ul class="info-list">
+        <li><span class="icon">📍</span><span>Academic Building-I (CSE Building), 2nd Floor, RUET, Rajshahi-6204, Bangladesh</span></li>
+        <li><span class="icon">📧</span><a href="mailto:nahinete.ruet@gmail.com">nahinete.ruet@gmail.com</a></li>
+        <li><span class="icon">📧</span><a href="mailto:nazmul.nahin@ete.ruet.ac.bd">nazmul.nahin@ete.ruet.ac.bd</a></li>
+        <li><span class="icon">📞</span><span>+880 1876 519534</span></li>
+        <li><span class="icon">🎓</span><a href="https://scholar.google.com/citations?user=bYq9IXUAAAAJ" target="_blank">Google Scholar Profile</a></li>
+        <li><span class="icon">💼</span><a href="https://www.linkedin.com/in/nazmul-islam-nahin-292b23165/" target="_blank">LinkedIn Profile</a></li>
+        <li><span class="icon">🏛️</span><a href="https://www.ete.ruet.ac.bd/nahin" target="_blank">RUET Faculty Profile</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="section-inner reveal">
+    <p class="section-label">Focus Areas</p>
+    <h2 class="section-title">Research</h2>
+    <div class="research-grid">
+      <div class="research-card">
+        <h3>⚡ Power Electronics</h3>
+        <p>Inverter topologies, PWM strategies, DC-DC converters, multilevel inverters, and switched-capacitor systems for efficient power conversion.</p>
+      </div>
+      <div class="research-card">
+        <h3>🔁 Control Systems</h3>
+        <p>Model Predictive Control (MPC), Sliding Mode Control, Direct Torque Control (DTC), Field-Oriented Control (FOC), and PI/lag compensators for motor drives.</p>
+      </div>
+      <div class="research-card">
+        <h3>☀️ Renewable Energy</h3>
+        <p>Solar PV grid integration, MPPT algorithms, transformerless inverters for PV systems, and induction motor drives for water pumping applications.</p>
+      </div>
+      <div class="research-card">
+        <h3>🤖 ML in Power Electronics</h3>
+        <p>Integrating machine learning and ANN-based algorithms into power electronics for smarter control, fault detection, and performance optimization.</p>
+      </div>
+      <div class="research-card">
+        <h3>🏭 Motor Drives</h3>
+        <p>Voltage source inverter (VSI) driven induction motor drives, sensorless control strategies, and high-performance torque and flux regulation.</p>
+      </div>
+      <div class="research-card">
+        <h3>🔌 Grid Integration</h3>
+        <p>Power quality enhancement, grid-tied PV systems, leakage current reduction, and single-phase grid-interactive inverter control.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner reveal">
+    <p class="section-label">Academic Journey</p>
+    <h2 class="section-title">Education</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">2025</div>
+        <div class="timeline-degree">M.Sc in Electronics and Telecommunication Engineering</div>
+        <div class="timeline-inst">Rajshahi University of Engineering and Technology (RUET)</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2023</div>
+        <div class="timeline-degree">B.Sc in Electronics and Telecommunication Engineering</div>
+        <div class="timeline-inst">Rajshahi University of Engineering and Technology (RUET)</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2017</div>
+        <div class="timeline-degree">Higher Secondary Certificate (H.S.C.)</div>
+        <div class="timeline-inst">Tamirul Millat Kamil Madrasah</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2015</div>
+        <div class="timeline-degree">Secondary School Certificate (S.S.C.)</div>
+        <div class="timeline-inst">Cox's Bazar Hashemia Kamil Madrasah</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="section-inner reveal">
+    <p class="section-label">Scholarly Work</p>
+    <h2 class="section-title">Publications</h2>
+    <div class="pub-filters">
+      <button class="filter-btn active" onclick="filterPubs('all', this)">All (25)</button>
+      <button class="filter-btn" onclick="filterPubs('Journal', this)">Journal (5)</button>
+      <button class="filter-btn" onclick="filterPubs('Conference', this)">Conference (18)</button>
+      <button class="filter-btn" onclick="filterPubs('Book Chapter', this)">Book Chapter (2)</button>
+    </div>
+    <p class="pub-count">Showing <span id="pub-shown">25</span> publications</p>
+    <div class="pub-table-wrap">
+      <table id="pubTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Year</th>
+            <th>Title</th>
+            <th>Publisher</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody id="pubBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="section-inner reveal">
+    <p class="section-label">Recognition</p>
+    <h2 class="section-title">Awards & Honors</h2>
+    <div class="awards-grid">
+      <div class="award-card">
+        <div class="award-icon">🏆</div>
+        <div>
+          <h4>Best Paper Award — EICT 2023</h4>
+          <p>6th International Conference on Electrical Information and Communication Technology</p>
+        </div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">🥇</div>
+        <div>
+          <h4>Best Poster Award — ASEMD 2023</h4>
+          <p>IEEE International Conference on Applied Superconductivity and Electromagnetic Devices</p>
+        </div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">🎤</div>
+        <div>
+          <h4>Best Oral Presentation — ASEMD 2023</h4>
+          <p>IEEE International Conference on Applied Superconductivity and Electromagnetic Devices</p>
+        </div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">📄</div>
+        <div>
+          <h4>Best Paper Award — ICEEE 2022</h4>
+          <p>International Conference on Electrical and Electronics Engineering</p>
+        </div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">📄</div>
+        <div>
+          <h4>Best Paper Award — ICECE 2022</h4>
+          <p>12th International Conference on Electrical and Computer Engineering</p>
+        </div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">🎓</div>
+        <div>
+          <h4>NST Fellowship 2025</h4>
+          <p>National Science and Technology Fellowship, Bangladesh</p>
+        </div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">🤖</div>
+        <div>
+          <h4>1st Runner-Up — Robotronics</h4>
+          <p>Robotics competition organized by the Dept. of Mechatronics Engineering</p>
+        </div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">🏅</div>
+        <div>
+          <h4>Board Scholarship — SSC & HSC</h4>
+          <p>Academic merit scholarship awarded by the Education Board of Bangladesh</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner reveal">
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>Direct Contact</h3>
+        <div class="contact-item">
+          <span class="c-icon">📧</span>
+          <div>
+            <a href="mailto:nahinete.ruet@gmail.com">nahinete.ruet@gmail.com</a><br>
+            <a href="mailto:nazmul.nahin@ete.ruet.ac.bd">nazmul.nahin@ete.ruet.ac.bd</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="c-icon">📞</span>
+          <p>+880 1876 519534</p>
+        </div>
+        <div class="contact-item">
+          <span class="c-icon">📍</span>
+          <p>Dept. of ETE, Academic Building-I (CSE Building), 2nd Floor<br>RUET, Kazla, Rajshahi-6204, Bangladesh</p>
+        </div>
+      </div>
+      <div class="contact-card">
+        <h3>Online Profiles</h3>
+        <div class="social-links">
+          <a href="https://scholar.google.com/citations?user=bYq9IXUAAAAJ&hl=en&oi=ao" target="_blank" class="social-btn">🎓 Google Scholar</a>
+          <a href="https://www.linkedin.com/in/nazmul-islam-nahin-292b23165/" target="_blank" class="social-btn">💼 LinkedIn</a>
+          <a href="https://www.facebook.com/i.isnahin" target="_blank" class="social-btn">📘 Facebook</a>
+          <a href="https://www.ete.ruet.ac.bd/nahin" target="_blank" class="social-btn">🏛️ RUET Profile</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Mohammed Nazmul Islam Nahin · Lecturer, <a href="https://www.ete.ruet.ac.bd" target="_blank">ETE, RUET</a></span>
+  <span>Built for GitHub Pages</span>
+</footer>
+
+<script>
+  // ── PUBLICATION DATA ──
+  const pubs = [
+    { year: 2026, title: "Field-Oriented Sensorless Sliding Mode Current Control of Single-Stage PV-Grid Interactive Induction Motor Drive for Water Pumping", url: "#", publisher: "IEEE", type: "Journal" },
+    { year: 2026, title: "Sliding Mode Current Control of Single-Phase Grid-Tied Inverter for Power Quality Enhancement", url: "https://ieeexplore.ieee.org/abstract/document/11490456", publisher: "IEEE", type: "Conference" },
+    { year: 2025, title: "A Modified PWM Technique to Improve the Performance of 6-Pulse Rectifier Fed VSI Driven Induction Motor Drives", url: "https://ieeexplore.ieee.org/abstract/document/11402027", publisher: "IEEE", type: "Conference" },
+    { year: 2025, title: "A Robust FOC Based Sliding Mode Controller for Two-Level Inverter Fed Induction Motor Drives", url: "https://ieeexplore.ieee.org/abstract/document/11402592", publisher: "IEEE", type: "Conference" },
+    { year: 2025, title: "Single-Stage PV-Grid Integrated Multilevel Inverter Driven Induction Motor Drive for Water Pumping", url: "https://ieeexplore.ieee.org/abstract/document/11013988", publisher: "IEEE", type: "Conference" },
+    { year: 2025, title: "A Modified Carrier Switching Scheme to Balance Capacitor Voltage and Power Loss of GaN Based NPC Inverters", url: "https://ieeexplore.ieee.org/abstract/document/11013915", publisher: "IEEE", type: "Conference" },
+    { year: 2024, title: "A Switched-Capacitor Based Single-Phase Transformerless Inverter for Grid Integration", url: "https://ieeexplore.ieee.org/abstract/document/10704992/", publisher: "IEEE", type: "Journal" },
+    { year: 2024, title: "Comparative Performance Investigation of Control Techniques for Solar PV Fed Induction Motor Drives", url: "https://ieeexplore.ieee.org/abstract/document/10807542/", publisher: "IEEE", type: "Conference" },
+    { year: 2024, title: "An Improved Railway Point Machine Control Mechanism for Enhancing Safety and Reliability of Rail Networks", url: "https://link.springer.com/chapter/10.1007/978-981-97-9037-1_26", publisher: "Springer Nature", type: "Book Chapter" },
+    { year: 2024, title: "Predictive Torque Control with Reduced Voltage Vectors for VSI Driven Induction Motor Drives", url: "https://ieeexplore.ieee.org/abstract/document/10640229/", publisher: "IEEE", type: "Journal" },
+    { year: 2023, title: "A Robust PI-Lag Compensator for DC-DC Buck Converter Fed DC Motor Drives", url: "https://ieeexplore.ieee.org/abstract/document/10427854/", publisher: "IEEE", type: "Conference" },
+    { year: 2023, title: "Exploring Deep CNNs: A Grad-CAM Enhanced Comparative Study for Automated COVID-19 Diagnosis from Chest X-Ray Images", url: "https://ieeexplore.ieee.org/abstract/document/10441931/", publisher: "IEEE", type: "Conference" },
+    { year: 2023, title: "A Robust PI-Type-II Compensator for DC-DC Boost Converter", url: "https://ieeexplore.ieee.org/abstract/document/10429020/", publisher: "IEEE", type: "Conference" },
+    { year: 2023, title: "A Switched-Capacitor Multilevel Transformerless PV Inverter with MPC for Grid Integration", url: "https://ieeexplore.ieee.org/abstract/document/10429008", publisher: "IEEE", type: "Conference" },
+    { year: 2023, title: "A Modified PWM Strategy with Improved ANN Based MPPT Algorithm for Solar PV Fed NPC Inverter Driven Induction Motor Drives", url: "https://ieeexplore.ieee.org/abstract/document/10168829/", publisher: "IEEE", type: "Journal" },
+    { year: 2023, title: "Improved Model Predictive Torque Control with Reduced Active Prediction Vectors for VSI Driven Induction Motor Drives", url: "https://ieeexplore.ieee.org/abstract/document/10369863/", publisher: "IEEE", type: "Conference" },
+    { year: 2023, title: "Advanced Model Predictive Control Strategy for Solar PV Fed Induction Motor Drives", url: "https://ieeexplore.ieee.org/abstract/document/10368910/", publisher: "IEEE", type: "Conference" },
+    { year: 2023, title: "A Switched-Capacitor Transformerless Inverter with Model Predictive Control for Grid-Tied PV Systems", url: "https://ieeexplore.ieee.org/abstract/document/10427571/", publisher: "IEEE", type: "Conference" },
+    { year: 2023, title: "Improved Vector Control Scheme for VSI Driven Induction Motor Drives", url: "https://ieeexplore.ieee.org/abstract/document/10428760/", publisher: "IEEE", type: "Conference" },
+    { year: 2022, title: "Advanced Switching Sequences for a Multiphase Interleaved DC-DC Boost Converter Using TMS320F28335 DSP Control Card", url: "https://ieeexplore.ieee.org/abstract/document/10088612/", publisher: "IEEE", type: "Conference" },
+    { year: 2022, title: "A New Topology of Single-Phase Transformerless Inverter for Reducing Leakage Current of Grid-Tied PV Systems", url: "https://ieeexplore.ieee.org/abstract/document/10089033/", publisher: "IEEE", type: "Conference" },
+    { year: 2022, title: "An Improved Direct Torque Control Scheme for PWM Inverter Based Solar PV Fed Induction Motor Drives", url: "https://ieeexplore.ieee.org/abstract/document/10088892/", publisher: "IEEE", type: "Conference" },
+    { year: 2022, title: "Investigating the Input Power Quality of Multi-Pulse AC-DC Power Converter Fed Induction Motor Drives", url: "https://www.cell.com/heliyon/fulltext/S2405-8440(22)03021-3", publisher: "Heliyon", type: "Journal" },
+    { year: 2022, title: "A Modified SVPWM Strategy to Improve the Performance of Variable Frequency Induction Motor Drive", url: "https://link.springer.com/chapter/10.1007/978-981-19-1742-4_41", publisher: "Springer Nature", type: "Book Chapter" },
+    { year: 2022, title: "IoT Based Solar Panel Driven Electric Robot for Rescue Operation in Remote Areas", url: "https://ieeexplore.ieee.org/abstract/document/10114538/", publisher: "IEEE", type: "Conference" },
+  ];
+
+  const badgeClass = { Journal: 'badge-journal', Conference: 'badge-conf', 'Book Chapter': 'badge-book' };
+  let currentFilter = 'all';
+
+  function renderPubs(filter) {
+    const body = document.getElementById('pubBody');
+    const filtered = filter === 'all' ? pubs : pubs.filter(p => p.type === filter);
+    body.innerHTML = filtered.map((p, i) => `
+      <tr data-type="${p.type}">
+        <td>${i + 1}</td>
+        <td style="white-space:nowrap;color:var(--accent);font-weight:600">${p.year}</td>
+        <td><a href="${p.url}" target="_blank" rel="noopener">${p.title}</a></td>
+        <td style="white-space:nowrap">${p.publisher}</td>
+        <td><span class="badge ${badgeClass[p.type]}">${p.type}</span></td>
+      </tr>
+    `).join('');
+    document.getElementById('pub-shown').textContent = filtered.length;
+  }
+
+  function filterPubs(type, btn) {
+    currentFilter = type;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderPubs(type);
+  }
+
+  renderPubs('all');
+
+  // ── MOBILE MENU ──
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // ── SCROLL REVEAL ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
